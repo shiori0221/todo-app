@@ -4,4 +4,6 @@ class List < ActiveHash::Base
     { id: 2, name: '終わった' }
   ]
 
+  include ActiveHash::Associations
+  has_many :tasks
 end
