@@ -1,0 +1,43 @@
+<h1 >やること一覧</h1>
+
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>やること</th>
+        <th>メモ</th>
+        <th>期限</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <% if task.list.id == 1 %>
+        <tr>
+          <td><%= task.text %></td>
+          <td><%= task.memo %></td>
+          <td><%= task.limit %></td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>終わった</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <% if task.list.id == 2 %>
+          <tr>
+            <td><%= task.text %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
