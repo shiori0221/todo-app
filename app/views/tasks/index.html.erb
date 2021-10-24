@@ -16,6 +16,7 @@
           <td><%= task.text %></td>
           <td><%= task.memo %></td>
           <td><%= task.limit %></td>
+          <td><%= link_to '編集', edit_task_path(task) %>
         </tr>
         <% end %>
       <% end %>
