@@ -16,7 +16,9 @@
           <td><%= task.text %></td>
           <td><%= task.memo %></td>
           <td><%= task.limit %></td>
-          <td><%= link_to '編集', edit_task_path(task) %>
+          <td><%= link_to '編集', edit_task_path(task) %></td>
+          <td><%= link_to '削除', task_path(task), method: :delete %>
+
         </tr>
         <% end %>
       <% end %>
@@ -29,6 +31,7 @@
     <thead>
       <tr>
         <th>終わった</th>
+        <th>メモ</th>
       </tr>
     </thead>
     <tbody>
@@ -36,6 +39,7 @@
         <% if task.list.id == 2 %>
           <tr>
             <td><%= task.text %></td>
+            <td><%= task.memo %></td>
           </tr>
         <% end %>
       <% end %>
