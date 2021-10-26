@@ -1,49 +1,62 @@
-<h1 >やること一覧</h1>
-<%= link_to 'やること追加', new_task_path, class:"btn btn-info" %>
-<div class="container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>やること</th>
-        <th>メモ</th>
-        <th>期限</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-        <% if task.list.id == 1 %>
+<% unless user_signed_in? %>
+  <h1>ToDoリスト</h1>
+  <p>~登録して自分用のToDoリストを作ろう！~</p>
+  <%= link_to "新規登録", new_user_registration_path, class:"btn btn-info" %>
+  <%= link_to 'ログイン', new_user_session_path, class:"btn btn-info" %><br>
+  <br><em>＜sample＞</em>
+  <img src="<%="/todoサンプル.png"%>" width="100%"  height="100%" >
+<% end %>
+
+
+
+<% if user_signed_in? %>
+  <h1><%= current_user.nickname %>さんのやること一覧</h1>
+  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"btn btn-secondary" %>
+  <%= link_to 'やること追加', new_task_path, class:"btn btn-info" %>
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
         <tr>
-          <td><%= task.text %></td>
-          <td><%= task.memo %></td>
-          <td><%= task.limit %></td>
-          <td><%= link_to '編集', edit_task_path(task), class:"btn btn-success" %></td>
-          <td><%= link_to '削除', task_path(task), method: :delete, class:"btn btn-danger" %>
-
+          <th>やること</th>
+          <th>メモ</th>
+          <th>期限</th>
         </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
-<div class="container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>終わった</th>
-        <th>メモ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-        <% if task.list.id == 2 %>
+      </thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <% if (task.user_id == current_user.id) && (task.list.id == 1) %>
           <tr>
             <td><%= task.text %></td>
             <td><%= task.memo %></td>
+            <td><%= task.limit %></td>
+            <td><%= link_to '編集', edit_task_path(task), class:"btn btn-success" %></td>
             <td><%= link_to '削除', task_path(task), method: :delete, class:"btn btn-danger" %>
           </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>終わった</th>
+          <th>メモ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <% if (task.user_id == current_user.id) && (task.list.id == 2) %>
+            <tr>
+              <td><%= task.text %></td>
+              <td><%= task.memo %></td>
+              <td><%= link_to '削除', task_path(task), method: :delete, class:"btn btn-danger" %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
