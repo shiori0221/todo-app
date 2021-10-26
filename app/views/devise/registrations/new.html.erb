@@ -3,7 +3,7 @@
 <%= link_to 'ログイン', new_user_session_path, class:"btn btn-info" %>
 
 <%= form_with model: @user, url: user_registration_path, local: true do |f| %>
-  
+  <%= render 'layouts/error_messages', model: f.object %>
 
   <div class="form-group">
     <%= f.label :ニックネーム %><strong>(6文字以内)</strong><br />

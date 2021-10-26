@@ -2,7 +2,10 @@
 <%= link_to "トップページ", root_path, class:"btn btn-info" %>
 <%= link_to "新規登録", new_user_registration_path, class:"btn btn-info" %>
 
-
+<div class='login-flash-message'>
+  <%= flash[:notice] %>
+  <%= flash[:alert] %>
+</div>
 <%= form_with model: @user, url: user_session_path, local: true do |f| %>
 
   <div class="form-group">
