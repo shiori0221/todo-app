@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:edit, :update, :destroy]
+  before_action :move_to_index, except: [:index]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.includes(:user)
   end
 
   def new
@@ -41,7 +42,13 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:text, :memo, :limit, :list_id)
+    params.require(:task).permit(:text, :memo, :limit, :list_id).merge(user_id: current_user.id)
+  end
+
+  def move_to_index
+    unless user_signed_in?
+      redirect_to new_user_session_path
+    end
   end
 
 end
