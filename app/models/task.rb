@@ -3,4 +3,5 @@ class Task < ApplicationRecord
   belongs_to :list
 
   validates :text, presence: true
+  belongs_to :user
 end
